@@ -12,104 +12,108 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f5f4f0;
-  --surface: #ffffff;
-  --surface2: #f0efe9;
-  --accent: #2d4a3e;
-  --accent2: #4a7c59;
-  --accent-light: #e8f0eb;
-  --text: #1a1a1a;
-  --text2: #666;
-  --text3: #999;
-  --border: #e0dfd8;
-  --danger: #c0392b;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --bg:#f5f4f0;--surface:#fff;--surface2:#f0efe9;
+  --accent:#2d4a3e;--accent2:#4a7c59;--accent-light:#e8f0eb;
+  --text:#1a1a1a;--text2:#666;--text3:#999;--border:#e0dfd8;
+  --danger:#c0392b;--radius:12px;--radius-sm:8px;--shadow:0 2px 12px rgba(0,0,0,.08);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-.header { background: var(--accent); color: white; padding: 16px 20px 12px; position: sticky; top: 0; z-index: 100; }
-.header h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; }
-.header-sub { font-size: 11px; opacity: 0.6; margin-top: 2px; font-family: 'DM Mono', monospace; }
-.tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 58px; z-index: 99; }
-.tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 13px; font-weight: 500; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
-.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-.tab svg { display: block; margin: 0 auto 3px; width: 18px; height: 18px; }
-.panel { display: none; padding: 16px; padding-bottom: 80px; }
-.panel.active { display: block; }
-.card { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-.form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
-.field { display: flex; flex-direction: column; gap: 5px; }
-.field label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.8px; }
-.field input, .field textarea {
-  padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-  font-size: 15px; font-family: 'Noto Sans TC', sans-serif; background: var(--surface);
-  color: var(--text); transition: border-color 0.2s; width: 100%;
-}
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--accent2); }
-.field textarea { min-height: 70px; resize: vertical; }
-.scan-btn {
-  width: 100%; padding: 14px; background: var(--accent); color: white;
-  border: none; border-radius: var(--radius); font-size: 15px; font-weight: 700;
-  font-family: 'Noto Sans TC', sans-serif; cursor: pointer; display: flex;
-  align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;
-}
-.scan-btn svg { width: 22px; height: 22px; }
-.scan-btn:active { opacity: 0.85; transform: scale(0.99); }
-.save-btn {
-  width: 100%; padding: 14px; background: var(--accent2); color: white;
-  border: none; border-radius: var(--radius); font-size: 15px; font-weight: 700;
-  font-family: 'Noto Sans TC', sans-serif; cursor: pointer; margin-top: 4px;
-}
-.save-btn:active { opacity: 0.85; }
-.divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
-.divider span { font-size: 11px; color: var(--text3); white-space: nowrap; }
-.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.preview-box { background: var(--surface2); border-radius: var(--radius-sm); border: 1.5px dashed var(--border); padding: 12px; margin-bottom: 14px; }
-.preview-box img { width: 100%; border-radius: 6px; max-height: 180px; object-fit: cover; }
-.preview-label { font-size: 11px; color: var(--text3); text-align: center; margin-top: 8px; }
-.ocr-result { font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; margin-top: 8px; line-height: 1.6; max-height: 80px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
-.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 8px; text-align: center; }
-.stat-num { font-size: 24px; font-weight: 700; color: var(--accent); font-family: 'DM Mono', monospace; }
-.stat-label { font-size: 10px; color: var(--text3); margin-top: 2px; }
-.search-wrap { position: relative; margin-bottom: 12px; }
-.search-wrap input { width: 100%; padding: 12px 16px 12px 42px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 15px; background: var(--surface); font-family: 'Noto Sans TC', sans-serif; color: var(--text); }
-.search-wrap input:focus { outline: none; border-color: var(--accent2); }
-.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text3); width: 18px; height: 18px; }
-.autocomplete { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); z-index: 50; overflow: hidden; box-shadow: var(--shadow); }
-.ac-item { padding: 11px 16px; font-size: 14px; cursor: pointer; border-bottom: 1px solid var(--border); color: var(--text); }
-.ac-item:last-child { border-bottom: none; }
-.ac-item:active, .ac-item.sel { background: var(--accent-light); }
-.ac-match { color: var(--accent2); font-weight: 700; }
-.order-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px 16px; margin-bottom: 10px; }
-.order-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-.order-customer { font-size: 16px; font-weight: 700; color: var(--text); }
-.order-num { display: inline-block; font-size: 10px; font-family: 'DM Mono', monospace; background: var(--accent-light); color: var(--accent); padding: 2px 8px; border-radius: 20px; margin-left: 6px; vertical-align: middle; }
-.order-date { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
-.order-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.order-field { font-size: 12px; }
-.order-field-key { color: var(--text3); }
-.order-field-val { color: var(--text); font-weight: 500; }
-.order-note { font-size: 12px; color: var(--text2); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); grid-column: 1/-1; }
-.del-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text3); }
-.del-btn:active { color: var(--danger); }
-.empty { text-align: center; padding: 48px 20px; color: var(--text3); }
-.empty svg { width: 48px; height: 48px; margin: 0 auto 12px; opacity: 0.3; display: block; }
-.empty p { font-size: 14px; }
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--accent); color: white; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 500; z-index: 999; transition: transform 0.3s ease; white-space: nowrap; }
-.toast.show { transform: translateX(-50%) translateY(0); }
-.scanning { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
-.scanning.show { display: flex; }
-.scanning p { color: white; font-size: 15px; }
-.spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.2); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.sync-bar { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11px; color: var(--text3); padding: 6px; }
-.sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); }
-.sync-dot.ok { background: var(--accent2); }
-.sync-dot.err { background: var(--danger); }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.header{background:var(--accent);color:#fff;padding:16px 20px 12px;position:sticky;top:0;z-index:100;}
+.header h1{font-size:17px;font-weight:700;letter-spacing:.5px;}
+.header-sub{font-size:11px;opacity:.6;margin-top:2px;font-family:'DM Mono',monospace;}
+.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:58px;z-index:99;}
+.tab{flex:1;padding:12px 8px;text-align:center;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab svg{display:block;margin:0 auto 3px;width:18px;height:18px;}
+.panel{display:none;padding:16px;padding-bottom:80px;}
+.panel.active{display:block;}
+.card{background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:12px;border:1px solid var(--border);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.form-row.triple{grid-template-columns:1fr 1fr 1fr;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;}
+.field input,.field textarea,.field select{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-family:'Noto Sans TC',sans-serif;background:var(--surface);color:var(--text);transition:border-color .2s;width:100%;}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent2);}
+.field textarea{min-height:70px;resize:vertical;}
+/* qty row with unit select */
+.qty-row{display:grid;grid-template-columns:1fr auto;gap:6px;}
+.qty-row select{width:80px;padding:10px 6px;}
+/* weight/unit + total */
+.weight-calc{background:var(--accent-light);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;}
+.weight-calc-title{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;}
+.weight-calc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end;}
+.weight-calc-row .field label{color:var(--accent);}
+.total-box{background:var(--accent);color:#fff;border-radius:var(--radius-sm);padding:8px 10px;text-align:center;}
+.total-num{font-size:18px;font-weight:700;font-family:'DM Mono',monospace;}
+.total-label{font-size:10px;opacity:.8;margin-top:1px;}
+.wpu-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.wpu-display{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:15px;font-family:'DM Mono',monospace;background:var(--surface2);color:var(--accent);font-weight:700;}
+.wpu-edit-btn{padding:9px 14px;border:1.5px solid var(--accent2);border-radius:var(--radius-sm);background:var(--surface);color:var(--accent2);font-size:13px;font-family:'Noto Sans TC',sans-serif;font-weight:700;cursor:pointer;white-space:nowrap;}
+.wpu-edit-box{display:none;gap:8px;align-items:center;margin-bottom:8px;}
+.wpu-edit-box.show{display:flex;}
+.wpu-preset-btn{padding:7px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);font-size:13px;font-family:'DM Mono',monospace;cursor:pointer;color:var(--text2);}
+.wpu-preset-btn:active{background:var(--accent-light);border-color:var(--accent2);color:var(--accent);}
+.scan-btn{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;}
+.scan-btn:active{opacity:.85;}
+.save-btn{width:100%;padding:14px;background:var(--accent2);color:#fff;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;margin-top:4px;}
+.save-btn:active{opacity:.85;}
+.divider{display:flex;align-items:center;gap:10px;margin:14px 0;}
+.divider span{font-size:11px;color:var(--text3);white-space:nowrap;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.preview-box{background:var(--surface2);border-radius:var(--radius-sm);border:1.5px dashed var(--border);padding:12px;margin-bottom:14px;}
+.preview-box img{width:100%;border-radius:6px;max-height:180px;object-fit:cover;}
+.preview-label{font-size:11px;color:var(--text3);text-align:center;margin-top:8px;}
+.ocr-result{font-size:12px;color:var(--text2);font-family:'DM Mono',monospace;margin-top:8px;line-height:1.6;max-height:80px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;text-align:center;}
+.stat-num{font-size:20px;font-weight:700;color:var(--accent);font-family:'DM Mono',monospace;}
+.stat-label{font-size:9px;color:var(--text3);margin-top:2px;}
+.filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px;}
+.filter-btn{flex-shrink:0;padding:6px 14px;border-radius:100px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-family:'Noto Sans TC',sans-serif;color:var(--text2);cursor:pointer;white-space:nowrap;}
+.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;}
+.search-wrap{position:relative;margin-bottom:12px;}
+.search-wrap input{width:100%;padding:12px 16px 12px 42px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:15px;background:var(--surface);font-family:'Noto Sans TC',sans-serif;color:var(--text);}
+.search-wrap input:focus{outline:none;border-color:var(--accent2);}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);width:18px;height:18px;}
+.autocomplete{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);z-index:50;overflow:hidden;box-shadow:var(--shadow);}
+.ac-item{padding:11px 16px;font-size:14px;cursor:pointer;border-bottom:1px solid var(--border);color:var(--text);}
+.ac-item:last-child{border-bottom:none;}
+.ac-item:active,.ac-item.sel{background:var(--accent-light);}
+.ac-match{color:var(--accent2);font-weight:700;}
+.order-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:14px 16px;margin-bottom:10px;}
+.order-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.order-customer{font-size:16px;font-weight:700;color:var(--text);}
+.order-num{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:middle;}
+.order-date{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;}
+.order-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+.order-field{font-size:12px;}
+.order-field-key{color:var(--text3);}
+.order-field-val{color:var(--text);font-weight:500;}
+.order-note{font-size:12px;color:var(--text2);margin-top:4px;padding-top:8px;border-top:1px solid var(--border);grid-column:1/-1;}
+.del-btn{background:none;border:none;cursor:pointer;padding:4px;color:var(--text3);}
+.del-btn:active{color:var(--danger);}
+.status-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
+.status-0{background:#fff3cd;color:#856404;}
+.status-1{background:#cfe2ff;color:#084298;}
+.status-2{background:#d1e7dd;color:#0a3622;}
+.status-btns{display:flex;gap:6px;margin-top:8px;}
+.status-btn{flex:1;padding:7px 4px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-family:'Noto Sans TC',sans-serif;font-weight:700;cursor:pointer;text-align:center;color:var(--text2);transition:all .15s;}
+.status-btn.s0{border-color:#ffc107;color:#856404;background:#fff3cd;}
+.status-btn.s1{border-color:#0d6efd;color:#084298;background:#cfe2ff;}
+.status-btn.s2{border-color:#198754;color:#0a3622;background:#d1e7dd;}
+.notif-banner{background:var(--accent-light);border:1px solid var(--accent2);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--accent);display:flex;align-items:center;gap:8px;}
+.notif-btn{margin-left:auto;padding:5px 12px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:12px;font-family:'Noto Sans TC',sans-serif;cursor:pointer;white-space:nowrap;}
+.empty{text-align:center;padding:48px 20px;color:var(--text3);}
+.empty svg{width:48px;height:48px;margin:0 auto 12px;opacity:.3;display:block;}
+.empty p{font-size:14px;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#fff;padding:12px 24px;border-radius:100px;font-size:14px;font-weight:500;z-index:999;transition:transform .3s ease;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.scanning{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.scanning.show{display:flex;}
+.scanning p{color:#fff;font-size:15px;}
+.spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
@@ -120,7 +124,7 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: va
       <h1>📦 塑膠袋訂單管理</h1>
       <div class="header-sub">PLASTIC BAG ORDER SYSTEM</div>
     </div>
-    <div id="sync-status" style="font-size:11px;opacity:0.7;text-align:right"></div>
+    <div id="sync-status" style="font-size:11px;opacity:.7;text-align:right"></div>
   </div>
 </div>
 
@@ -135,6 +139,7 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: va
   </div>
 </div>
 
+<!-- ADD PANEL -->
 <div class="panel active" id="panel-add">
   <div class="card">
     <button class="scan-btn" onclick="triggerScan()">
@@ -162,14 +167,16 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: va
         <input type="date" id="f-date">
       </div>
     </div>
-    <div class="form-row">
-      <div class="field">
-        <label>單號</label>
-        <input type="text" id="f-ordernum" placeholder="單號">
-      </div>
+    <div class="form-row single">
       <div class="field">
         <label>材料 *</label>
-        <input type="text" id="f-material" placeholder="HDPE / LDPE / PP">
+        <select id="f-material">
+          <option value="">請選擇材料</option>
+          <option value="HDPE">HDPE</option>
+          <option value="LDPE">LDPE</option>
+          <option value="PP">PP</option>
+          <option value="其他">其他（備註說明）</option>
+        </select>
       </div>
     </div>
     <div class="field" style="margin-bottom:10px">
@@ -180,15 +187,56 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: va
         <input type="number" id="f-thk" placeholder="厚">
       </div>
     </div>
-    <div class="form-row">
-      <div class="field">
-        <label>數量（個）</label>
-        <input type="number" id="f-qty" placeholder="5000">
+
+    <!-- 數量 + 單位 -->
+    <div class="field" style="margin-bottom:10px">
+      <label>數量 *</label>
+      <div class="qty-row">
+        <input type="number" id="f-qty" placeholder="例：5000" oninput="calcTotal()">
+        <select id="f-unit">
+          <option value="件">件</option>
+          <option value="包">包</option>
+          <option value="袋">袋</option>
+          <option value="KG">KG</option>
+        </select>
       </div>
-      <div class="field">
-        <label>重量（kg）</label>
-        <input type="number" id="f-weight" step="0.01" placeholder="25.5">
+    </div>
+
+    <!-- 重量/件 + 總量 -->
+    <div class="weight-calc">
+      <div class="weight-calc-title">重量計算</div>
+      <!-- 重量/件 顯示列 -->
+      <div class="wpu-row">
+        <div style="font-size:12px;color:var(--accent);min-width:64px">重量/件</div>
+        <div class="wpu-display" id="wpu-display">30 kg/件</div>
+        <button class="wpu-edit-btn" onclick="toggleWpuEdit()">修改</button>
       </div>
+      <!-- 編輯列（預設隱藏） -->
+      <div class="wpu-edit-box" id="wpu-edit-box">
+        <button class="wpu-preset-btn" onclick="setWpu(30)">30 kg</button>
+        <button class="wpu-preset-btn" onclick="setWpu(25)">25 kg</button>
+        <input type="number" id="f-weight-per" step="0.01" placeholder="自訂 kg" style="flex:1;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'DM Mono',monospace;" oninput="onWpuInput()">
+        <button class="wpu-edit-btn" onclick="toggleWpuEdit()" style="padding:9px 10px">✓</button>
+      </div>
+      <div class="weight-calc-row">
+        <div class="field">
+          <label>總重量（kg）</label>
+          <input type="number" id="f-weight" step="0.01" placeholder="自動計算" oninput="onWeightManual()">
+        </div>
+        <div class="total-box">
+          <div class="total-num" id="total-display">—</div>
+          <div class="total-label">總重 kg</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:10px">
+      <label>初始狀態</label>
+      <select id="f-status">
+        <option value="0">📋 進排程</option>
+        <option value="1">⚙️ 生產中</option>
+        <option value="2">📦 待出貨</option>
+      </select>
     </div>
     <div class="field" style="margin-bottom:12px">
       <label>備註</label>
@@ -198,11 +246,23 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: va
   </div>
 </div>
 
+<!-- SEARCH PANEL -->
 <div class="panel" id="panel-search">
+  <div id="notif-banner" class="notif-banner" style="display:none">
+    🔔 開啟推播通知，狀態更新時自動提醒
+    <button class="notif-btn" onclick="requestNotif()">開啟</button>
+  </div>
   <div class="stats">
-    <div class="stat"><div class="stat-num" id="stat-total">-</div><div class="stat-label">總訂單</div></div>
-    <div class="stat"><div class="stat-num" id="stat-customers">-</div><div class="stat-label">客戶數</div></div>
-    <div class="stat"><div class="stat-num" id="stat-month">-</div><div class="stat-label">本月</div></div>
+    <div class="stat"><div class="stat-num" id="stat-total">-</div><div class="stat-label">全部</div></div>
+    <div class="stat"><div class="stat-num" id="stat-s0" style="color:#856404">-</div><div class="stat-label">進排程</div></div>
+    <div class="stat"><div class="stat-num" id="stat-s1" style="color:#084298">-</div><div class="stat-label">生產中</div></div>
+    <div class="stat"><div class="stat-num" id="stat-s2" style="color:#0a3622">-</div><div class="stat-label">待出貨</div></div>
+  </div>
+  <div class="filter-row">
+    <div class="filter-btn active" onclick="setFilter('all',this)">全部</div>
+    <div class="filter-btn" onclick="setFilter('0',this)">📋 進排程</div>
+    <div class="filter-btn" onclick="setFilter('1',this)">⚙️ 生產中</div>
+    <div class="filter-btn" onclick="setFilter('2',this)">📦 待出貨</div>
   </div>
   <div class="search-wrap">
     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -212,162 +272,204 @@ body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: va
   <div id="order-list"><div class="empty"><p>載入中...</p></div></div>
 </div>
 
-<div class="scanning" id="scanning">
-  <div class="spinner"></div>
-  <p id="scanning-msg">辨識中，請稍候...</p>
-</div>
-
-<div class="toast" id="toast">✓ 訂單已儲存</div>
+<div class="scanning" id="scanning"><div class="spinner"></div><p id="scanning-msg">處理中...</p></div>
+<div class="toast" id="toast"></div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbxnM6Sp3M9Y38EjMonnxvlbkcfaPBSBCLmBEozWAemlDAeD7aseK3pomiaB2-KUxGar/exec';
-let orders = [];
-let acItems = [], acIdx = -1;
+const API='https://script.google.com/macros/s/AKfycbxnM6Sp3M9Y38EjMonnxvlbkcfaPBSBCLmBEozWAemlDAeD7aseK3pomiaB2-KUxGar/exec';
+const STATUS_LABELS=['📋 進排程','⚙️ 生產中','📦 待出貨'];
+const STATUS_CLASSES=['status-0','status-1','status-2'];
+let orders=[],currentFilter='all',acItems=[],acIdx=-1;
 
-// ── API calls ──
-async function apiGet() {
-  const res = await fetch(API + '?action=getOrders');
-  const data = await res.json();
-  return data.orders || [];
+// ── Total calc ──
+let wpuValue = 30; // default 30 kg/件
+
+function toggleWpuEdit(){
+  const box = document.getElementById('wpu-edit-box');
+  box.classList.toggle('show');
+}
+function setWpu(val){
+  wpuValue = val;
+  document.getElementById('wpu-display').textContent = val + ' kg/件';
+  document.getElementById('f-weight-per').value = '';
+  calcTotal();
+}
+function onWpuInput(){
+  const v = parseFloat(document.getElementById('f-weight-per').value);
+  if(v > 0){ wpuValue = v; document.getElementById('wpu-display').textContent = v + ' kg/件'; }
+  calcTotal();
+}
+function onWeightManual(){
+  // if user manually types total weight, just show it
+  const w = parseFloat(document.getElementById('f-weight').value)||0;
+  document.getElementById('total-display').textContent = w > 0 ? w.toFixed(2) : '—';
+}
+function calcTotal(){
+  const qty = parseFloat(document.getElementById('f-qty').value)||0;
+  let total = 0;
+  if(qty && wpuValue){ total = Math.round(qty * wpuValue * 100) / 100; }
+  else { total = parseFloat(document.getElementById('f-weight').value)||0; }
+  document.getElementById('total-display').textContent = total > 0 ? total.toFixed(2) : '—';
+  if(qty && wpuValue) document.getElementById('f-weight').value = total.toFixed(2);
 }
 
-async function apiAdd(order) {
-  const res = await fetch(API, {
-    method: 'POST',
-    body: JSON.stringify({ action: 'addOrder', order })
-  });
-  return await res.json();
+// ── Notification ──
+function checkNotifBanner(){
+  if('Notification' in window&&Notification.permission==='default')
+    document.getElementById('notif-banner').style.display='flex';
+}
+async function requestNotif(){
+  const p=await Notification.requestPermission();
+  document.getElementById('notif-banner').style.display='none';
+  if(p==='granted')showToast('🔔 推播通知已開啟');
+}
+function sendNotif(title,body){
+  if('Notification' in window&&Notification.permission==='granted')
+    new Notification(title,{body});
 }
 
-async function apiDelete(id) {
-  const res = await fetch(API, {
-    method: 'POST',
-    body: JSON.stringify({ action: 'deleteOrder', id })
-  });
-  return await res.json();
-}
+// ── API ──
+async function apiGet(){const r=await fetch(API+'?action=getOrders');const d=await r.json();return d.orders||[];}
+async function apiAdd(o){const r=await fetch(API,{method:'POST',body:JSON.stringify({action:'addOrder',order:o})});return r.json();}
+async function apiDelete(id){const r=await fetch(API,{method:'POST',body:JSON.stringify({action:'deleteOrder',id})});return r.json();}
+async function apiUpdateStatus(id,status){const r=await fetch(API,{method:'POST',body:JSON.stringify({action:'updateStatus',id,status})});return r.json();}
 
 // ── Tabs ──
-function switchTab(tab) {
-  ['add','search'].forEach(t => {
-    document.getElementById('panel-'+t).classList.toggle('active', t===tab);
-    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+function switchTab(tab){
+  ['add','search'].forEach(t=>{
+    document.getElementById('panel-'+t).classList.toggle('active',t===tab);
+    document.getElementById('tab-'+t).classList.toggle('active',t===tab);
   });
-  if(tab==='search') loadAndRender();
+  if(tab==='search'){checkNotifBanner();loadAndRender();}
 }
 
-// ── Load & render ──
-async function loadAndRender() {
-  setSyncStatus('載入中...', '');
-  try {
-    orders = await apiGet();
-    updateStats();
-    renderOrders(document.getElementById('search-input').value.trim());
-    setSyncStatus('已同步 Google Sheets', 'ok');
-  } catch(e) {
-    setSyncStatus('連線失敗', 'err');
-    renderOrders('');
-  }
+// ── Load ──
+async function loadAndRender(){
+  setSyncStatus('載入中...','');
+  try{orders=await apiGet();updateStats();renderOrders();setSyncStatus('已同步','ok');}
+  catch(e){setSyncStatus('連線失敗','err');}
+}
+function setSyncStatus(msg,state){
+  const el=document.getElementById('sync-status');
+  el.textContent=msg;
+  el.style.color=state==='err'?'#ff6b6b':state==='ok'?'#a8d5b5':'rgba(255,255,255,.6)';
+}
+function updateStats(){
+  document.getElementById('stat-total').textContent=orders.length;
+  document.getElementById('stat-s0').textContent=orders.filter(o=>String(o.status||'0')==='0').length;
+  document.getElementById('stat-s1').textContent=orders.filter(o=>String(o.status)==='1').length;
+  document.getElementById('stat-s2').textContent=orders.filter(o=>String(o.status)==='2').length;
 }
 
-function setSyncStatus(msg, state) {
-  const el = document.getElementById('sync-status');
-  el.textContent = msg;
-  el.style.color = state==='err' ? '#ff6b6b' : state==='ok' ? '#a8d5b5' : 'rgba(255,255,255,0.6)';
-}
-
-function updateStats() {
-  const now = today().slice(0,7);
-  document.getElementById('stat-total').textContent = orders.length;
-  document.getElementById('stat-customers').textContent = new Set(orders.map(o=>o.customer)).size;
-  document.getElementById('stat-month').textContent = orders.filter(o=>String(o.date).startsWith(now)).length;
+// ── Filter ──
+function setFilter(f,el){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');renderOrders();
 }
 
 // ── Save ──
-async function saveOrder() {
-  const customer = document.getElementById('f-customer').value.trim();
-  const date = document.getElementById('f-date').value;
-  const material = document.getElementById('f-material').value.trim();
-  if(!customer || !date || !material) { alert('請填寫客戶名稱、日期、材料'); return; }
-
-  const order = {
-    id: Date.now(),
-    customer, date,
-    orderNum: document.getElementById('f-ordernum').value.trim(),
+async function saveOrder(){
+  const customer=document.getElementById('f-customer').value.trim();
+  const date=document.getElementById('f-date').value;
+  const material=document.getElementById('f-material').value.trim();
+  if(!customer||!date||!material){alert('請填寫客戶名稱、日期、材料');return;}
+  const qty=document.getElementById('f-qty').value;
+  const unit=document.getElementById('f-unit').value;
+  const weightPer=document.getElementById('f-weight-per').value;
+  const weight=document.getElementById('f-weight').value;
+  const total=document.getElementById('total-display').textContent;
+  const order={
+    id:Date.now(),customer,date,
+    orderNum:'',
     material,
-    len: document.getElementById('f-len').value,
-    wid: document.getElementById('f-wid').value,
-    thk: document.getElementById('f-thk').value,
-    qty: document.getElementById('f-qty').value,
-    weight: document.getElementById('f-weight').value,
-    note: document.getElementById('f-note').value.trim()
+    len:document.getElementById('f-len').value,
+    wid:document.getElementById('f-wid').value,
+    thk:document.getElementById('f-thk').value,
+    qty,unit,weightPer,weight,
+    totalWeight:total==='—'?'':total,
+    status:document.getElementById('f-status').value,
+    note:document.getElementById('f-note').value.trim()
   };
-
   showScanning('儲存中...');
-  try {
-    await apiAdd(order);
-    hideScanning();
-    ['f-customer','f-ordernum','f-material','f-len','f-wid','f-thk','f-qty','f-weight','f-note'].forEach(id => document.getElementById(id).value='');
-    document.getElementById('f-date').value = today();
-    document.getElementById('preview-box').style.display = 'none';
-    showToast('✓ 訂單已儲存到 Google Sheets');
-  } catch(e) {
-    hideScanning();
-    showToast('❌ 儲存失敗，請檢查網路');
-  }
+  try{
+    await apiAdd(order);hideScanning();
+    ['f-customer','f-material','f-len','f-wid','f-thk','f-qty','f-weight-per','f-weight','f-note'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('f-date').value=today();
+    document.getElementById('f-status').value='0';
+    document.getElementById('f-unit').value='件';
+    document.getElementById('total-display').textContent='—';
+    wpuValue=30; document.getElementById('wpu-display').textContent='30 kg/件';
+    document.getElementById('wpu-edit-box').classList.remove('show');
+    document.getElementById('preview-box').style.display='none';
+    showToast('✓ 訂單已儲存');
+    sendNotif('新訂單',`${customer} 的訂單已建立`);
+  }catch(e){hideScanning();showToast('❌ 儲存失敗');}
+}
+
+// ── Update status ──
+async function updateStatus(id,newStatus,customerName){
+  showScanning('更新狀態...');
+  try{
+    await apiUpdateStatus(id,newStatus);hideScanning();
+    const label=STATUS_LABELS[newStatus].replace(/[📋⚙️📦\s]/g,'');
+    showToast(`✓ 已更新為「${STATUS_LABELS[newStatus]}」`);
+    sendNotif('訂單狀態更新',`${customerName} → ${STATUS_LABELS[newStatus]}`);
+    loadAndRender();
+  }catch(e){hideScanning();showToast('❌ 更新失敗');}
 }
 
 // ── Delete ──
-async function delOrder(id) {
-  if(!confirm('確定要刪除？')) return;
+async function delOrder(id){
+  if(!confirm('確定要刪除？'))return;
   showScanning('刪除中...');
-  try {
-    await apiDelete(id);
-    hideScanning();
-    loadAndRender();
-  } catch(e) {
-    hideScanning();
-    showToast('❌ 刪除失敗');
-  }
+  try{await apiDelete(id);hideScanning();loadAndRender();}
+  catch(e){hideScanning();showToast('❌ 刪除失敗');}
 }
 
-// ── Search & autocomplete ──
-function onSearch() {
-  const kw = document.getElementById('search-input').value.trim();
+// ── Search ──
+function onSearch(){
+  const kw=document.getElementById('search-input').value.trim();
   renderOrders(kw);
-  if(!kw) { hideAC(); return; }
-  const names = [...new Set(orders.map(o=>o.customer))].filter(n=>n.includes(kw));
-  if(!names.length || (names.length===1 && names[0]===kw)) { hideAC(); return; }
-  acItems = names.slice(0,8); acIdx = -1;
-  const list = document.getElementById('ac-list');
-  list.innerHTML = acItems.map((n,i) => {
-    const idx = n.indexOf(kw);
-    const hl = idx>=0 ? n.slice(0,idx)+'<span class="ac-match">'+n.slice(idx,idx+kw.length)+'</span>'+n.slice(idx+kw.length) : n;
+  if(!kw){hideAC();return;}
+  const names=[...new Set(orders.map(o=>o.customer))].filter(n=>n.includes(kw));
+  if(!names.length||(names.length===1&&names[0]===kw)){hideAC();return;}
+  acItems=names.slice(0,8);acIdx=-1;
+  const list=document.getElementById('ac-list');
+  list.innerHTML=acItems.map((n,i)=>{
+    const idx=n.indexOf(kw);
+    const hl=idx>=0?n.slice(0,idx)+'<span class="ac-match">'+n.slice(idx,idx+kw.length)+'</span>'+n.slice(idx+kw.length):n;
     return `<div class="ac-item" onmousedown="selectAC(${i})">${hl}</div>`;
   }).join('');
-  list.style.display = 'block';
+  list.style.display='block';
 }
-
-function onSearchKey(e) {
-  const items = document.querySelectorAll('.ac-item');
-  if(e.key==='ArrowDown') { acIdx=Math.min(acIdx+1,acItems.length-1); hlAC(items); e.preventDefault(); }
-  else if(e.key==='ArrowUp') { acIdx=Math.max(acIdx-1,-1); hlAC(items); e.preventDefault(); }
-  else if(e.key==='Enter'&&acIdx>=0) { selectAC(acIdx); e.preventDefault(); }
-  else if(e.key==='Escape') hideAC();
+function onSearchKey(e){
+  const items=document.querySelectorAll('.ac-item');
+  if(e.key==='ArrowDown'){acIdx=Math.min(acIdx+1,acItems.length-1);hlAC(items);e.preventDefault();}
+  else if(e.key==='ArrowUp'){acIdx=Math.max(acIdx-1,-1);hlAC(items);e.preventDefault();}
+  else if(e.key==='Enter'&&acIdx>=0){selectAC(acIdx);e.preventDefault();}
+  else if(e.key==='Escape')hideAC();
 }
-function hlAC(items) { items.forEach((el,i)=>el.classList.toggle('sel',i===acIdx)); }
-function selectAC(i) { document.getElementById('search-input').value=acItems[i]; hideAC(); renderOrders(acItems[i]); }
-function hideAC() { document.getElementById('ac-list').style.display='none'; acIdx=-1; }
-document.addEventListener('click', e => { if(!e.target.closest('.search-wrap')) hideAC(); });
+function hlAC(items){items.forEach((el,i)=>el.classList.toggle('sel',i===acIdx));}
+function selectAC(i){document.getElementById('search-input').value=acItems[i];hideAC();renderOrders(acItems[i]);}
+function hideAC(){document.getElementById('ac-list').style.display='none';acIdx=-1;}
+document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))hideAC();});
 
-function renderOrders(kw) {
-  const filtered = kw ? orders.filter(o=>o.customer.includes(kw)) : orders;
-  const list = document.getElementById('order-list');
-  if(!filtered.length) {
-    list.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>${kw?'查無符合訂單':'尚無訂單紀錄'}</p></div>`;
+function renderOrders(kw){
+  kw=kw!==undefined?kw:document.getElementById('search-input').value.trim();
+  let filtered=kw?orders.filter(o=>o.customer.includes(kw)):orders;
+  if(currentFilter!=='all')filtered=filtered.filter(o=>String(o.status||'0')===currentFilter);
+  const list=document.getElementById('order-list');
+  if(!filtered.length){
+    list.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>${kw||currentFilter!=='all'?'查無符合訂單':'尚無訂單紀錄'}</p></div>`;
     return;
   }
-  list.innerHTML = filtered.map(o => `
+  list.innerHTML=filtered.map(o=>{
+    const st=parseInt(o.status||0);
+    const qtyStr=o.qty?`${Number(o.qty).toLocaleString()} ${o.unit||''}`.trim():'';
+    const wtStr=o.totalWeight&&o.totalWeight!=='—'?`總重 ${o.totalWeight} kg`:(o.weight?`${o.weight} kg`:'');
+    const wpStr=o.weightPer?`${o.weightPer} kg/件`:'';
+    return `
     <div class="order-card">
       <div class="order-top">
         <div>
@@ -384,89 +486,74 @@ function renderOrders(kw) {
       <div class="order-fields">
         <div class="order-field"><span class="order-field-key">材料 </span><span class="order-field-val">${o.material}</span></div>
         ${o.len||o.wid||o.thk?`<div class="order-field"><span class="order-field-key">尺寸 </span><span class="order-field-val">${[o.len&&o.len+'cm',o.wid&&o.wid+'cm',o.thk&&o.thk+'μm'].filter(Boolean).join('×')}</span></div>`:''}
-        ${o.qty?`<div class="order-field"><span class="order-field-key">數量 </span><span class="order-field-val">${Number(o.qty).toLocaleString()}個</span></div>`:''}
-        ${o.weight?`<div class="order-field"><span class="order-field-key">重量 </span><span class="order-field-val">${o.weight}kg</span></div>`:''}
+        ${qtyStr?`<div class="order-field"><span class="order-field-key">數量 </span><span class="order-field-val">${qtyStr}</span></div>`:''}
+        ${wpStr?`<div class="order-field"><span class="order-field-key">重/件 </span><span class="order-field-val">${wpStr}</span></div>`:''}
+        ${wtStr?`<div class="order-field"><span class="order-field-key">總重 </span><span class="order-field-val">${wtStr}</span></div>`:''}
         ${o.note?`<div class="order-note">備註：${o.note}</div>`:''}
       </div>
-    </div>
-  `).join('');
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <span class="status-badge ${STATUS_CLASSES[st]}">${STATUS_LABELS[st]}</span>
+      </div>
+      <div class="status-btns">
+        <button class="status-btn${st===0?' s0':''}" onclick="updateStatus(${o.id},0,'${o.customer.replace(/'/g,"\\'")}')">📋 進排程</button>
+        <button class="status-btn${st===1?' s1':''}" onclick="updateStatus(${o.id},1,'${o.customer.replace(/'/g,"\\'")}')">⚙️ 生產中</button>
+        <button class="status-btn${st===2?' s2':''}" onclick="updateStatus(${o.id},2,'${o.customer.replace(/'/g,"\\'")}')">📦 待出貨</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── Photo / OCR ──
-function triggerScan() { document.getElementById('file-input').click(); }
-
-function handlePhoto(e) {
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    document.getElementById('preview-img').src = ev.target.result;
-    document.getElementById('preview-box').style.display = 'block';
+function triggerScan(){document.getElementById('file-input').click();}
+function handlePhoto(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    document.getElementById('preview-img').src=ev.target.result;
+    document.getElementById('preview-box').style.display='block';
     runOCR(file);
   };
-  reader.readAsDataURL(file);
-  e.target.value = '';
+  reader.readAsDataURL(file);e.target.value='';
 }
-
-function runOCR(file) {
+function runOCR(file){
   showScanning('辨識中，請稍候...');
-  const load = () => {
-    Tesseract.recognize(file, 'chi_tra+eng', { logger: ()=>{} })
-      .then(({ data: { text } }) => {
-        hideScanning();
-        document.getElementById('ocr-text').textContent = text;
-        parseOCR(text);
-      }).catch(() => { hideScanning(); showToast('辨識失敗，請手動填寫'); });
+  const load=()=>{
+    Tesseract.recognize(file,'chi_tra+eng',{logger:()=>{}})
+      .then(({data:{text}})=>{hideScanning();document.getElementById('ocr-text').textContent=text;parseOCR(text);})
+      .catch(()=>{hideScanning();showToast('辨識失敗，請手動填寫');});
   };
-  if(window.Tesseract) { load(); return; }
-  const s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
-  s.onload = load;
-  s.onerror = () => { hideScanning(); showToast('載入辨識引擎失敗'); };
+  if(window.Tesseract){load();return;}
+  const s=document.createElement('script');
+  s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+  s.onload=load;s.onerror=()=>{hideScanning();showToast('載入辨識引擎失敗');};
   document.head.appendChild(s);
 }
-
-function parseOCR(text) {
-  const full = text.split('\n').map(l=>l.trim()).filter(Boolean).join(' ');
-  const custMatch = full.match(/客[戶户][\s:：]*([^\s,，。]+)/);
-  if(custMatch) setField('f-customer', custMatch[1]);
-  const numMatch = full.match(/單[號号][\s:：]*([A-Za-z0-9\-_]+)/);
-  if(numMatch) setField('f-ordernum', numMatch[1]);
-  for(const m of ['HDPE','LDPE','LLDPE','PP','PVC','PE','OPP','CPP','PET']) {
-    if(full.toUpperCase().includes(m)) { setField('f-material', m); break; }
+function parseOCR(text){
+  const full=text.split('\n').map(l=>l.trim()).filter(Boolean).join(' ');
+  const cm=full.match(/客[戶户][\s:：]*([^\s,，。]+)/);if(cm)setField('f-customer',cm[1]);
+  const nm=full.match(/單[號号][\s:：]*([A-Za-z0-9\-_]+)/);if(nm)// orderNum removed
+  for(const m of['HDPE','LDPE','LLDPE','PP','PVC','PE','OPP','CPP','PET']){if(full.toUpperCase().includes(m)){setField('f-material',m);break;}}
+  const dm=full.match(/(\d+(?:\.\d+)?)\s*[×xX*]\s*(\d+(?:\.\d+)?)\s*[×xX*]\s*(\d+(?:\.\d+)?)/);
+  if(dm){setField('f-len',dm[1]);setField('f-wid',dm[2]);setField('f-thk',dm[3]);}
+  else{
+    const lm=full.match(/長[\s:：]*(\d+(?:\.\d+)?)/),wm=full.match(/寬[\s:：]*(\d+(?:\.\d+)?)/),tm=full.match(/厚[\s:：]*(\d+(?:\.\d+)?)/);
+    if(lm)setField('f-len',lm[1]);if(wm)setField('f-wid',wm[1]);if(tm)setField('f-thk',tm[1]);
   }
-  const dimMatch = full.match(/(\d+(?:\.\d+)?)\s*[×xX*]\s*(\d+(?:\.\d+)?)\s*[×xX*]\s*(\d+(?:\.\d+)?)/);
-  if(dimMatch) { setField('f-len',dimMatch[1]); setField('f-wid',dimMatch[2]); setField('f-thk',dimMatch[3]); }
-  else {
-    const lm=full.match(/長[\s:：]*(\d+(?:\.\d+)?)/), wm=full.match(/寬[\s:：]*(\d+(?:\.\d+)?)/), tm=full.match(/厚[\s:：]*(\d+(?:\.\d+)?)/);
-    if(lm) setField('f-len',lm[1]); if(wm) setField('f-wid',wm[1]); if(tm) setField('f-thk',tm[1]);
-  }
-  const qm=full.match(/數量[\s:：]*(\d+)|(\d+)\s*[個个pcs張]/i);
-  if(qm) setField('f-qty', qm[1]||qm[2]);
-  const wm2=full.match(/重量[\s:：]*(\d+(?:\.\d+)?)|(\d+(?:\.\d+)?)\s*[kK][gG]/);
-  if(wm2) setField('f-weight', wm2[1]||wm2[2]);
-  const dm=full.match(/(\d{4})[\-\/年](\d{1,2})[\-\/月](\d{1,2})/);
-  if(dm) setField('f-date', `${dm[1]}-${dm[2].padStart(2,'0')}-${dm[3].padStart(2,'0')}`);
+  const qm=full.match(/數量[\s:：]*(\d+)|(\d+)\s*[個个pcs張件包袋]/i);if(qm)setField('f-qty',qm[1]||qm[2]);
+  const wm2=full.match(/重量[\s:：]*(\d+(?:\.\d+)?)|(\d+(?:\.\d+)?)\s*[kK][gG]/);if(wm2){setField('f-weight',wm2[1]||wm2[2]);calcTotal();}
+  const dtm=full.match(/(\d{4})[\-\/年](\d{1,2})[\-\/月](\d{1,2})/);
+  if(dtm)setField('f-date',`${dtm[1]}-${dtm[2].padStart(2,'0')}-${dtm[3].padStart(2,'0')}`);
   showToast('辨識完成，請確認欄位');
 }
-
-function setField(id, val) { if(val) document.getElementById(id).value = val; }
+function setField(id,val){if(val)document.getElementById(id).value=val;}
 
 // ── Utils ──
-function today() { return new Date().toISOString().slice(0,10); }
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2800);
-}
-function showScanning(msg) {
-  document.getElementById('scanning-msg').textContent = msg || '處理中...';
-  document.getElementById('scanning').classList.add('show');
-}
-function hideScanning() { document.getElementById('scanning').classList.remove('show'); }
+function today(){return new Date().toISOString().slice(0,10);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function showScanning(msg){document.getElementById('scanning-msg').textContent=msg||'處理中...';document.getElementById('scanning').classList.add('show');}
+function hideScanning(){document.getElementById('scanning').classList.remove('show');}
 
-// ── Init ──
-document.getElementById('f-date').value = today();
+document.getElementById('f-date').value=today();
 </script>
 </body>
 </html>
