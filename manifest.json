@@ -1,0 +1,22 @@
+{
+  "name": "塑膠袋訂單管理",
+  "short_name": "訂單管理",
+  "description": "塑膠工廠訂單管理系統",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f5f4f0",
+  "theme_color": "#2d4a3e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
