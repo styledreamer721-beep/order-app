@@ -515,9 +515,10 @@ function handlePhoto(e){
   };
   reader.readAsDataURL(file);e.target.value='';
 }
+const WORKER_URL = 'https://order-scan.styledreamer721.workers.dev';
+
 function runOCR(file){
   showScanning('AI 辨識中，請稍候...');
-  // 先壓縮圖片再送出
   const img = new Image();
   const url = URL.createObjectURL(file);
   img.onload = async () => {
@@ -533,37 +534,46 @@ function runOCR(file){
     const base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
     URL.revokeObjectURL(url);
     try {
-      const res = await fetch(API, {
+      const res = await fetch(WORKER_URL, {
         method: 'POST',
-        body: JSON.stringify({ action: 'scanImage', imageBase64: base64 })
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ imageBase64: base64, mimeType: 'image/jpeg' })
       });
       const data = await res.json();
       hideScanning();
-      if(data.success && data.data) {
-        const d = data.data;
-        document.getElementById('ocr-text').textContent = JSON.stringify(d, null, 2);
-        if(d.customer) setField('f-customer', d.customer);
-        if(d.date) setField('f-date', d.date);
-        if(d.material) {
-          const mat = d.material.toUpperCase();
-          const sel = document.getElementById('f-material');
-          for(let i=0; i<sel.options.length; i++){
-            if(sel.options[i].value === mat){ sel.selectedIndex=i; break; }
+      if(data.content && data.content[0] && data.content[0].text) {
+        const text = data.content[0].text.trim();
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+        if(jsonMatch) {
+          const d = JSON.parse(jsonMatch[0]);
+          document.getElementById('ocr-text').textContent = JSON.stringify(d, null, 2);
+          if(d.customer) setField('f-customer', d.customer);
+          if(d.date) setField('f-date', d.date);
+          if(d.material) {
+            const mat = d.material.toUpperCase();
+            const sel = document.getElementById('f-material');
+            for(let i=0; i<sel.options.length; i++){
+              if(sel.options[i].value === mat){ sel.selectedIndex=i; break; }
+            }
           }
+          if(d.len) setField('f-len', d.len);
+          if(d.wid) setField('f-wid', d.wid);
+          if(d.thk) setField('f-thk', d.thk);
+          if(d.qty){ setField('f-qty', d.qty); calcTotal(); }
+          if(d.weight){ setField('f-weight', d.weight); calcTotal(); }
+          if(d.note) setField('f-note', d.note);
+          showToast('✓ AI 辨識完成，請確認欄位');
+        } else {
+          showToast('辨識失敗，請手動填寫');
         }
-        if(d.len) setField('f-len', d.len);
-        if(d.wid) setField('f-wid', d.wid);
-        if(d.thk) setField('f-thk', d.thk);
-        if(d.qty){ setField('f-qty', d.qty); calcTotal(); }
-        if(d.weight){ setField('f-weight', d.weight); calcTotal(); }
-        if(d.note) setField('f-note', d.note);
-        showToast('✓ AI 辨識完成，請確認欄位');
+      } else if(data.error) {
+        showToast('錯誤：' + data.error.slice(0,40));
       } else {
         showToast('辨識失敗，請手動填寫');
       }
     } catch(e) {
       hideScanning();
-      showToast('辨識失敗，請手動填寫');
+      showToast('錯誤：' + (e.message||'未知').slice(0,40));
     }
   };
   img.src = url;
