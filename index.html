@@ -516,17 +516,45 @@ function handlePhoto(e){
   reader.readAsDataURL(file);e.target.value='';
 }
 function runOCR(file){
-  showScanning('辨識中，請稍候...');
-  const load=()=>{
-    Tesseract.recognize(file,'chi_tra+eng',{logger:()=>{}})
-      .then(({data:{text}})=>{hideScanning();document.getElementById('ocr-text').textContent=text;parseOCR(text);})
-      .catch(()=>{hideScanning();showToast('辨識失敗，請手動填寫');});
+  showScanning('AI 辨識中，請稍候...');
+  const reader = new FileReader();
+  reader.onload = async (ev) => {
+    const base64 = ev.target.result.split(',')[1];
+    try {
+      const res = await fetch(API, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'scanImage', imageBase64: base64 })
+      });
+      const data = await res.json();
+      hideScanning();
+      if(data.success && data.data) {
+        const d = data.data;
+        document.getElementById('ocr-text').textContent = JSON.stringify(d, null, 2);
+        if(d.customer) setField('f-customer', d.customer);
+        if(d.date) setField('f-date', d.date);
+        if(d.material) {
+          const mat = d.material.toUpperCase();
+          const sel = document.getElementById('f-material');
+          for(let i=0; i<sel.options.length; i++){
+            if(sel.options[i].value === mat){ sel.selectedIndex=i; break; }
+          }
+        }
+        if(d.len) setField('f-len', d.len);
+        if(d.wid) setField('f-wid', d.wid);
+        if(d.thk) setField('f-thk', d.thk);
+        if(d.qty){ setField('f-qty', d.qty); calcTotal(); }
+        if(d.weight){ setField('f-weight', d.weight); calcTotal(); }
+        if(d.note) setField('f-note', d.note);
+        showToast('✓ AI 辨識完成，請確認欄位');
+      } else {
+        showToast('辨識失敗，請手動填寫');
+      }
+    } catch(e) {
+      hideScanning();
+      showToast('辨識失敗，請手動填寫');
+    }
   };
-  if(window.Tesseract){load();return;}
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
-  s.onload=load;s.onerror=()=>{hideScanning();showToast('載入辨識引擎失敗');};
-  document.head.appendChild(s);
+  reader.readAsDataURL(file);
 }
 function parseOCR(text){
   const full=text.split('\n').map(l=>l.trim()).filter(Boolean).join(' ');
